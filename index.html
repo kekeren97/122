@@ -15,46 +15,57 @@
 
   <style>
     :root{
-      /* Microsoft-ish (clean, bright, Fluent-like) */
-      --bg:#ffffff;
-      --bg2:#f6f9ff;
+      /* ---- Fluent / Microsoft 365-like ---- */
+      --ms-blue: #0078d4;
+      --ms-blue-10: rgba(0,120,212,.10);
+      --ms-blue-16: rgba(0,120,212,.16);
+      --ms-blue-24: rgba(0,120,212,.24);
+
+      /* Page background: subtle gradient like microsoft.com */
+      --bg: #f6f9ff;
+      --bg2:#f7f4ff;
+
+      /* Surfaces */
       --card:#ffffff;
-      --ink:#1b1a19;
-      --muted:#605e5c;
-      --line:#edebe9;
+      --ink:#1b1a19;     /* Fluent ink */
+      --muted:#605e5c;   /* Fluent secondary */
+      --line:#edebe9;    /* Fluent divider */
 
-      --ms-blue:#0078d4;
-      --ms-blue-soft:#eaf3fc;
-      --ms-blue-border:#9cc7ff;
-
+      /* Accent palette for charts (keep your original low-sat) */
       --deep-blue:#1f5a6a;
-      --deep-green:#2f6f4f;
+      --deep-green:#2f6f55;
       --deep-red:#b15245;
       --sand:#d5b35f;
       --stone:#9aa0a6;
 
       --shadow: 0 10px 30px rgba(0,0,0,.06);
-      --shadow2: 0 6px 18px rgba(0,0,0,.06);
+      --shadow2: 0 14px 50px rgba(0,0,0,.08);
       --radius: 18px;
       --max: 980px;
 
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
+
     body{
       margin:0;
-      /* White + very light Fluent gradient */
-      background:
-        radial-gradient(1200px 520px at 15% -10%, rgba(0,120,212,.10), transparent 58%),
-        radial-gradient(900px 420px at 95% 10%, rgba(160,120,255,.10), transparent 60%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
       color:var(--ink);
       font-family: Inter, -apple-system, BlinkMacSystemFont, "PingFang SC","Hiragino Sans GB","Microsoft YaHei", Arial, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+
+      /* Microsoft-like soft gradient background */
+      background:
+        radial-gradient(1200px 420px at 16% -10%, rgba(0,120,212,.14), transparent 55%),
+        radial-gradient(900px 420px at 88% 0%, rgba(123,97,255,.10), transparent 60%),
+        radial-gradient(1000px 520px at 50% 110%, rgba(0,120,212,.08), transparent 55%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
     }
+
     a{color:inherit}
+
     .wrap{
       max-width: var(--max);
       margin: 0 auto;
@@ -84,18 +95,16 @@
       line-height: 1.65;
     }
 
-    /* Sticky nav (Fluent acrylic-like) */
+    /* Sticky nav */
     .sticky{
       position: sticky;
       top: 0;
       z-index: 10;
       margin: 10px 0 12px;
       padding: 10px 10px;
-      background: rgba(255,255,255,.72);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(237,235,233,.75);
-      border-left: none;
-      border-right: none;
+      background: rgba(246,249,255,.72);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(237,235,233,.9);
     }
     .nav{
       display:flex;
@@ -105,35 +114,37 @@
       scrollbar-width: none;
     }
     .nav::-webkit-scrollbar{display:none}
+
     .chip{
       flex:0 0 auto;
       padding: 8px 10px;
-      border: 1px solid rgba(237,235,233,.95);
+      border: 1px solid rgba(237,235,233,.9);
       border-radius: 999px;
       background: rgba(255,255,255,.78);
       font-size: 12px;
       color: #2a2f36;
       white-space: nowrap;
       text-decoration: none;
-      transition: .15s ease;
+      transition: .16s ease;
+      user-select:none;
     }
+    /* Microsoft-like hover/active: light blue bg + thin blue border */
+    .chip:hover{
+      background: var(--ms-blue-10);
+      border-color: rgba(0,120,212,.45);
+    }
+    .chip:active{
+      background: var(--ms-blue-16);
+      border-color: rgba(0,120,212,.70);
+      transform: scale(.98);
+    }
+
     .chip b{font-weight:600}
     .chip .dot{
       display:inline-block;
       width:8px;height:8px;border-radius:99px;margin-right:6px;
       background: var(--stone);
       vertical-align: -1px;
-    }
-    .chip:hover{
-      background: var(--ms-blue-soft);
-      border-color: var(--ms-blue-border);
-      color: var(--ms-blue);
-    }
-    .chip:active{
-      background: var(--ms-blue-soft);
-      border-color: var(--ms-blue);
-      color: var(--ms-blue);
-      transform: scale(.98);
     }
 
     /* Cards */
@@ -144,8 +155,8 @@
       margin-top: 8px;
     }
     .card{
-      background: rgba(255,255,255,.86);
-      border: 1px solid rgba(237,235,233,.95);
+      background: var(--card);
+      border: 1px solid rgba(237,235,233,.92);
       border-radius: var(--radius);
       box-shadow: var(--shadow2);
       overflow:hidden;
@@ -167,8 +178,8 @@
       flex:0 0 auto;
       font-size: 11px;
       color: var(--muted);
-      border: 1px solid rgba(237,235,233,.95);
-      background: rgba(250,250,250,.8);
+      border: 1px solid rgba(237,235,233,.92);
+      background: rgba(255,255,255,.9);
       padding: 6px 10px;
       border-radius: 999px;
       white-space: nowrap;
@@ -182,9 +193,9 @@
     .chart{
       height: 310px;
       width: 100%;
-      border-top: 1px solid rgba(237,235,233,.95);
-      border-bottom: 1px solid rgba(237,235,233,.95);
-      background: rgba(255,255,255,.9);
+      border-top: 1px solid rgba(237,235,233,.92);
+      border-bottom: 1px solid rgba(237,235,233,.92);
+      background: #fff;
     }
     .pad{ padding: 14px 16px 16px; }
 
@@ -195,12 +206,14 @@
       gap: 10px;
     }
     .m{
-      border: 1px dashed rgba(237,235,233,.95);
+      border: 1px solid rgba(237,235,233,.92);
       border-radius: 14px;
       padding: 10px 10px;
-      background: rgba(251,251,251,.85);
+      background: rgba(255,255,255,.92);
     }
     .m .k{ font-size: 11px; color: var(--muted); }
+
+    /* KPI numbers emphasized with ms-blue */
     .m .v{
       margin-top: 6px;
       font-size: 18px;
@@ -210,10 +223,9 @@
     }
     .m .u{
       font-size: 12px;
-      font-weight: 800;
+      font-weight: 700;
+      color: rgba(0,120,212,.78);
       margin-left: 6px;
-      color: var(--ms-blue);
-      opacity:.9;
     }
     .m .s{
       margin-top: 6px;
@@ -228,13 +240,13 @@
       border-collapse: separate;
       border-spacing: 0;
       overflow: hidden;
-      border: 1px solid rgba(237,235,233,.95);
+      border: 1px solid rgba(237,235,233,.92);
       border-radius: 14px;
-      background: rgba(252,252,252,.9);
+      background: rgba(255,255,255,.92);
     }
     .tbl th, .tbl td{
       padding: 10px 10px;
-      border-bottom: 1px solid rgba(237,235,233,.95);
+      border-bottom: 1px solid rgba(237,235,233,.92);
       font-size: 12px;
       vertical-align: top;
       line-height: 1.5;
@@ -242,19 +254,20 @@
     .tbl th{
       text-align: left;
       color: #2a2f36;
-      background: rgba(250,250,250,.9);
-      font-weight: 600;
+      background: rgba(246,249,255,.75);
+      font-weight: 700;
       font-size: 12px;
     }
     .tbl tr:last-child td{ border-bottom: none; }
+
     .muted{ color: var(--muted); }
     .mono{ font-family: var(--mono); }
 
-    /* Disclosure */
+    /* Disclosure & accordion */
     details{
-      border: 1px solid rgba(237,235,233,.95);
+      border: 1px solid rgba(237,235,233,.92);
       border-radius: 14px;
-      background: rgba(252,252,252,.9);
+      background: rgba(255,255,255,.92);
       padding: 10px 12px;
       margin-top: 12px;
     }
@@ -265,7 +278,7 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      font-weight:600;
+      font-weight:700;
       font-size: 13px;
     }
     summary::-webkit-details-marker{display:none}
@@ -305,10 +318,10 @@
     .modal.show{display:flex}
     .sheet{
       width: min(var(--max), 100%);
-      background: rgba(255,255,255,.96);
-      border: 1px solid rgba(237,235,233,.95);
+      background: #fff;
+      border: 1px solid rgba(237,235,233,.92);
       border-radius: 18px;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow2);
       overflow:hidden;
     }
     .sheet-h{
@@ -316,12 +329,12 @@
       align-items:center;
       justify-content:space-between;
       padding: 12px 14px;
-      border-bottom: 1px solid rgba(237,235,233,.95);
+      border-bottom: 1px solid rgba(237,235,233,.92);
     }
     .sheet-h b{font-size: 14px}
     .x{
-      border: 1px solid rgba(237,235,233,.95);
-      background: rgba(250,250,250,.9);
+      border: 1px solid rgba(237,235,233,.92);
+      background: rgba(246,249,255,.75);
       width: 32px; height: 32px;
       border-radius: 10px;
       cursor:pointer;
@@ -334,14 +347,14 @@
       line-height: 1.8;
     }
     .sheet-b code{
-      background: rgba(243,244,246,.95);
+      background: rgba(0,120,212,.08);
       padding: 2px 6px;
       border-radius: 8px;
       color:#374151;
       font-family: var(--mono);
     }
 
-    /* Buttons */
+    /* Small helper buttons */
     .btnrow{
       display:flex;
       gap:10px;
@@ -350,14 +363,20 @@
     }
     .btn{
       appearance:none;
-      border: 1px solid rgba(237,235,233,.95);
-      background: rgba(250,250,250,.9);
+      border: 1px solid rgba(237,235,233,.92);
+      background: rgba(246,249,255,.65);
       border-radius: 999px;
       padding: 10px 12px;
       font-size: 12px;
       cursor:pointer;
+      transition:.16s ease;
     }
-    .btn b{font-weight:600}
+    .btn:hover{
+      background: var(--ms-blue-10);
+      border-color: rgba(0,120,212,.40);
+    }
+    .btn:active{transform: scale(.98)}
+    .btn b{font-weight:700}
 
     /* Footer */
     .footer{
@@ -375,17 +394,22 @@
     }
     .src a{
       text-decoration: none;
-      border: 1px solid rgba(237,235,233,.95);
+      border: 1px solid rgba(237,235,233,.92);
       background: rgba(255,255,255,.78);
       padding: 10px 12px;
       border-radius: 14px;
+      transition:.16s ease;
+    }
+    .src a:hover{
+      background: var(--ms-blue-10);
+      border-color: rgba(0,120,212,.35);
     }
 
     @media (min-width: 860px){
       h1{font-size: 38px}
       .grid{grid-template-columns: 1fr 1fr}
       .card.full{grid-column: 1 / -1}
-      .chart{height: 360px}
+      .chart{height: 340px}
       .metrics{grid-template-columns: repeat(4, 1fr)}
       .modal{align-items:center}
       .sheet{border-radius: 22px}
@@ -469,7 +493,7 @@
     </section>
 
     <div class="grid">
-      <!-- M365 Copilot -->
+      <!-- M365 Copilot Revenue Estimate -->
       <section class="card full" id="m365">
         <div class="card-h">
           <h2>AI 订阅产品：可反推的收入信号</h2>
@@ -540,9 +564,18 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td class="mono">$10 / 月</td><td class="muted">Copilot Pro（个人）</td></tr>
-              <tr><td class="mono">$19 / 月/seat</td><td class="muted">Copilot Business（组织）</td></tr>
-              <tr><td class="mono">$39 / 月/seat</td><td class="muted">Copilot Enterprise（企业）</td></tr>
+              <tr>
+                <td class="mono">$10 / 月</td>
+                <td class="muted">Copilot Pro（个人）</td>
+              </tr>
+              <tr>
+                <td class="mono">$19 / 月/seat</td>
+                <td class="muted">Copilot Business（组织）</td>
+              </tr>
+              <tr>
+                <td class="mono">$39 / 月/seat</td>
+                <td class="muted">Copilot Enterprise（企业）</td>
+              </tr>
             </tbody>
           </table>
 
@@ -586,12 +619,12 @@
           <span class="tag">TTM（5Y）</span>
         </div>
         <div class="meta">
-          微软并不公开披露“单独的 Microsoft 365 收入/Office 收入绝对值”。这里用最可验证的代理：<b>PBP</b> 的 TTM 5 年走势来承载 M365/Office 生态收入变化（包含 Office/M365、LinkedIn、Dynamics 等），并增加 <b>同比增长率（YoY）</b>。
+          微软并不公开披露“单独的 Microsoft 365 收入/Office 收入绝对值”。这里用最可验证的代理：<b>Productivity & Business Processes（PBP）</b> 的 TTM 5 年走势来承载 M365/Office 生态的收入变化（包含 Office/M365、LinkedIn、Dynamics 等），并增加同比增长率（YoY）。
         </div>
         <div class="chart" id="chart5y"></div>
         <div class="pad">
           <div class="note">
-            若你内部有更“纯”的 M365/Office 口径，把 JS 里 <span class="mono">pbp5y</span> 数组替换即可（YoY 会自动重算）。
+            若你内部有更“纯”的 M365/Office 口径（比如只取 Office Commercial products & cloud services），把下面 JS 里的数组替换即可，图会自动更新。
           </div>
         </div>
       </section>
@@ -602,15 +635,25 @@
       <div class="kicker">Sources</div>
       <div style="margin-top:6px; font-family:'Noto Serif SC',serif; font-size:18px; color:var(--ink);">数据来源（点击打开）</div>
       <div class="src">
-        <a href="https://www.microsoft.com/en-us/investor/earnings/fy-2026-q2/press-release-webcast" target="_blank" rel="noopener">微软 IR：FY26 Q2 Press Release / Webcast</a>
-        <a href="https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q2/productivity-and-business-processes-performance" target="_blank" rel="noopener">微软 IR：FY26 Q2 PBP Performance</a>
-        <a href="https://www.microsoft.com/en-us/microsoft-365-copilot/pricing/enterprise" target="_blank" rel="noopener">Microsoft 365 Copilot 定价</a>
-        <a href="https://docs.github.com/en/copilot/get-started/plans" target="_blank" rel="noopener">GitHub Copilot Plans</a>
-        <a href="https://stockanalysis.com/stocks/msft/metrics/revenue-by-segment/" target="_blank" rel="noopener">MSFT 分部收入（TTM 5Y 汇总）</a>
+        <a href="https://www.microsoft.com/en-us/investor/earnings/fy-2026-q2/press-release-webcast" target="_blank" rel="noopener">
+          微软 IR：FY26 Q2 Press Release / Webcast（总营收、Cloud、CapEx 等）
+        </a>
+        <a href="https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q2/productivity-and-business-processes-performance" target="_blank" rel="noopener">
+          微软 IR：FY26 Q2 PBP Performance（提到 Copilot/E5 拉动 RPU 等）
+        </a>
+        <a href="https://www.microsoft.com/en-us/microsoft-365-copilot/pricing/enterprise" target="_blank" rel="noopener">
+          Microsoft 365 Copilot 定价：$30 user/month（paid yearly）
+        </a>
+        <a href="https://docs.github.com/en/copilot/get-started/plans" target="_blank" rel="noopener">
+          GitHub Copilot Plans（Pro/Business/Enterprise 定价）
+        </a>
+        <a href="https://stockanalysis.com/stocks/msft/metrics/revenue-by-segment/" target="_blank" rel="noopener">
+          MSFT 分部收入（TTM 5Y 汇总表，用于 PBP 代理曲线）
+        </a>
       </div>
 
       <div style="margin-top:10px;">
-        注：本页“区间估算/系数”属于分析框架与内部判断用口径，不代表微软官方拆分披露。
+        注：本页的“收入区间估算/系数”属于分析框架与内部判断用口径，不代表微软官方拆分披露。
       </div>
     </section>
   </div>
@@ -628,7 +671,7 @@
 
   <script>
     // -----------------------------
-    // Inputs
+    // Disclosed / Inputs (edit here)
     // -----------------------------
     const disclosed = {
       total_revenue_b: 81.3,
@@ -643,23 +686,24 @@
     const M365_PRICE_PER_USER_PER_MONTH = 30;
 
     const m365Scenarios = [
-      { name: "保守", coef: 0.55, breakdown: "折扣 0.75 × 未满周期 0.80 × 打包/非纯价 0.92" },
-      { name: "基准", coef: 0.75, breakdown: "折扣 0.85 × 未满周期 0.90 × 打包/非纯价 0.98" },
-      { name: "乐观", coef: 0.90, breakdown: "折扣 0.92 × 未满周期 0.95 × 打包/非纯价 1.03" }
+      { name: "保守", coef: 0.55, breakdown: "折扣 0.75 × 未满周期 0.80 × 打包/非纯价 0.92", color: css("--stone") },
+      { name: "基准", coef: 0.75, breakdown: "折扣 0.85 × 未满周期 0.90 × 打包/非纯价 0.98", color: css("--sand") },
+      { name: "乐观", coef: 0.90, breakdown: "折扣 0.92 × 未满周期 0.95 × 打包/非纯价 1.03", color: css("--stone") }
     ];
 
     const ghArpuScenarios = [
-      { name: "保守 ARPU", arpu: 12 },
-      { name: "基准 ARPU", arpu: 18 },
-      { name: "乐观 ARPU", arpu: 24 }
+      { name: "保守 ARPU", arpu: 12, color: css("--stone") },
+      { name: "基准 ARPU", arpu: 18, color: css("--deep-blue") },
+      { name: "乐观 ARPU", arpu: 24, color: css("--deep-green") }
     ];
 
     const capexSplit = [
-      {name:'数据中心/算力设备（示意）', value: 70},
-      {name:'网络/存储/电力（示意）', value: 18},
-      {name:'其他（示意）', value: 12}
+      {name:'数据中心/算力设备（示意）', value: 70, color: css("--deep-red")},
+      {name:'网络/存储/电力（示意）', value: 18, color: css("--sand")},
+      {name:'其他（示意）', value: 12, color: css("--stone")}
     ];
 
+    // 5Y proxy curve (PBP TTM)
     const pbp5y = [
       { year: "FY21", value: 56.64 },
       { year: "FY22", value: 64.79 },
@@ -672,20 +716,22 @@
     // Helpers
     // -----------------------------
     function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
-    function fmtB(x){ return `${Number(x).toFixed(1)}B`; }
+    function fmtB(x){ return `${Number(x).toFixed(2)} $B`; }
     function annualB(seats, pricePerMonth, coef){
       return (seats * pricePerMonth * 12 * coef) / 1e9;
     }
     function annualB_fromARPU(users, arpu){
       return (users * arpu * 12) / 1e9;
     }
+
+    // YoY: FY21 has no prior year, but we still draw a tiny bar and label as "—"
     function calcYoY(arr){
       const out = [];
       for(let i=0;i<arr.length;i++){
-        if(i===0){ out.push(null); continue; }
+        if(i===0){ out.push(0); continue; } // draw bar (0), label as "—"
         const prev = arr[i-1].value;
         const cur  = arr[i].value;
-        out.push(prev ? ((cur - prev) / prev * 100) : null);
+        out.push(prev ? ((cur - prev) / prev * 100) : 0);
       }
       return out;
     }
@@ -696,7 +742,7 @@
     (function fillTable(){
       const tbody = document.getElementById("m365CoefBody");
       const seats = disclosed.m365_copilot_paid_seats;
-      tbody.innerHTML = m365Scenarios.map(s => {
+      const rows = m365Scenarios.map(s => {
         const val = annualB(seats, M365_PRICE_PER_USER_PER_MONTH, s.coef);
         return `
           <tr>
@@ -707,6 +753,7 @@
           </tr>
         `;
       }).join("");
+      tbody.innerHTML = rows;
     })();
 
     // -----------------------------
@@ -717,7 +764,7 @@
       tooltip: {
         trigger: 'item',
         backgroundColor: 'rgba(255,255,255,.96)',
-        borderColor: '#edebe9',
+        borderColor: 'rgba(237,235,233,.92)',
         borderWidth: 1,
         textStyle: {color:'#1b1a19', fontSize: 12},
         extraCssText: 'box-shadow: 0 10px 30px rgba(0,0,0,.10); border-radius: 12px;'
@@ -725,32 +772,31 @@
     };
 
     // -----------------------------
-    // Chart: M365 Copilot
+    // Chart: M365 Copilot annualized revenue capability
     // -----------------------------
     (function(){
       const el = document.getElementById("chartM365");
       const c = echarts.init(el, null, {renderer:"canvas"});
 
       const seats = disclosed.m365_copilot_paid_seats;
-      const seriesData = m365Scenarios.map((s, idx) => ({
-        name: s.name,
-        value: annualB(seats, M365_PRICE_PER_USER_PER_MONTH, s.coef),
-        itemStyle: { color: idx===1 ? css("--ms-blue") : (idx===2 ? css("--deep-green") : css("--stone")), borderRadius: [10,10,0,0] }
-      }));
+      const seriesData = m365Scenarios.map(s => {
+        const v = annualB(seats, M365_PRICE_PER_USER_PER_MONTH, s.coef);
+        return { name: s.name, value: v, itemStyle: { color: s.color, borderRadius: [10,10,0,0] } };
+      });
 
       const option = {
         ...common,
-        grid: {left: 54, right: 18, top: 56, bottom: 72},
+        grid: {left: 52, right: 18, top: 56, bottom: 72},
         title: [
           {
             text: "M365 Copilot 年化收入能力（区间估算）",
             left: 16, top: 12,
-            textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"}
+            textStyle: {fontSize: 13, fontWeight: 800, color:"#2a2f36"}
           },
           {
             text: `单位：十亿美元（$B） | seats=${(seats/1e6).toFixed(1)}M × $${M365_PRICE_PER_USER_PER_MONTH}/月 × 12 × 系数`,
             left: 16, top: 34,
-            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
+            textStyle: {fontSize: 11, fontWeight: 600, color: css("--muted")}
           }
         ],
         xAxis: {
@@ -766,7 +812,7 @@
           nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,0,0,10]},
           axisTick: {show:false},
           axisLine: {show:false},
-          splitLine: {lineStyle:{color:"#efefec"}}
+          splitLine: {lineStyle:{color:"rgba(237,235,233,.85)"}}
         },
         series: [
           {
@@ -776,12 +822,11 @@
             label: {
               show: true,
               position: "top",
-              formatter: (p) => `${Number(p.value).toFixed(2)} $B`,
+              formatter: (p) => `${Number(p.value).toFixed(2)}B`,
               color: "#2a2f36",
               fontSize: 12,
-              fontWeight: 700
-            },
-            labelLayout: { hideOverlap: true }
+              fontWeight: 800
+            }
           }
         ],
         graphic: [
@@ -803,32 +848,31 @@
     })();
 
     // -----------------------------
-    // Chart: GitHub Copilot
+    // Chart: GitHub Copilot annualized revenue (ARPU scenarios)
     // -----------------------------
     (function(){
       const el = document.getElementById("chartGH");
       const c = echarts.init(el, null, {renderer:"canvas"});
 
       const users = disclosed.gh_copilot_paid;
-      const seriesData = ghArpuScenarios.map((s, idx) => ({
-        name: s.name,
-        value: annualB_fromARPU(users, s.arpu),
-        itemStyle: { color: idx===1 ? css("--ms-blue") : (idx===2 ? css("--deep-green") : css("--stone")), borderRadius: [10,10,0,0] }
-      }));
+      const seriesData = ghArpuScenarios.map(s => {
+        const v = annualB_fromARPU(users, s.arpu);
+        return { name: s.name, value: v, itemStyle: { color: s.color, borderRadius: [10,10,0,0] } };
+      });
 
       const option = {
         ...common,
-        grid: {left: 54, right: 18, top: 56, bottom: 78},
+        grid: {left: 52, right: 18, top: 56, bottom: 78},
         title: [
           {
             text: "GitHub Copilot 年化收入能力（ARPU 情景）",
             left: 16, top: 12,
-            textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"}
+            textStyle: {fontSize: 13, fontWeight: 800, color:"#2a2f36"}
           },
           {
             text: `单位：十亿美元（$B） | paid=${(users/1e6).toFixed(1)}M × ARPU（$/月） × 12`,
             left: 16, top: 34,
-            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
+            textStyle: {fontSize: 11, fontWeight: 600, color: css("--muted")}
           }
         ],
         xAxis: {
@@ -844,7 +888,7 @@
           nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,0,0,10]},
           axisTick: {show:false},
           axisLine: {show:false},
-          splitLine: {lineStyle:{color:"#efefec"}}
+          splitLine: {lineStyle:{color:"rgba(237,235,233,.85)"}}
         },
         series: [
           {
@@ -854,12 +898,11 @@
             label: {
               show: true,
               position: "top",
-              formatter: (p) => `${Number(p.value).toFixed(2)} $B`,
+              formatter: (p) => `${Number(p.value).toFixed(2)}B`,
               color: "#2a2f36",
               fontSize: 12,
-              fontWeight: 700
-            },
-            labelLayout: { hideOverlap: true }
+              fontWeight: 800
+            }
           }
         ],
         graphic: [
@@ -881,23 +924,24 @@
     })();
 
     // -----------------------------
-    // Chart: Cost / CapEx
+    // Chart: Cost / CapEx (illustrative pie)
     // -----------------------------
     (function(){
       const el = document.getElementById('chartCost');
       const c = echarts.init(el, null, {renderer:'canvas'});
       const option = {
         ...common,
+        grid: {left: 16, right: 16, top: 44, bottom: 18},
         title: [
           {
             text: `CapEx：$${disclosed.capex_b}B（AI 基础设施为主）`,
             left: 16, top: 12,
-            textStyle: {fontSize: 13, fontWeight: 700, color:'#2a2f36'}
+            textStyle: {fontSize: 13, fontWeight: 800, color:'#2a2f36'}
           },
           {
             text: `单位：结构占比（示意）`,
             left: 16, top: 34,
-            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
+            textStyle: {fontSize: 11, fontWeight: 600, color: css("--muted")}
           }
         ],
         series: [
@@ -908,16 +952,9 @@
             center: ['50%','56%'],
             avoidLabelOverlap: true,
             itemStyle: {borderColor:'#fff', borderWidth: 2},
-            label: {
-              color:'#2a2f36',
-              formatter: (p)=> `${p.name}\n${p.value}%`,
-              fontSize: 11
-            },
-            labelLine: {length: 10, length2: 8, lineStyle:{color:'#d9d9d6'}},
-            data: capexSplit.map((d, idx)=>({
-              name:d.name, value:d.value,
-              itemStyle:{color: idx===0 ? css("--deep-red") : (idx===1 ? css("--sand") : css("--stone"))}
-            }))
+            label: { color:'#2a2f36', formatter: (p)=> `${p.name}\n${p.value}%`, fontSize: 11, fontWeight: 700 },
+            labelLine: {length: 10, length2: 8, lineStyle:{color:'rgba(217,217,214,.95)'}},
+            data: capexSplit.map(d=>({name:d.name, value:d.value, itemStyle:{color:d.color}}))
           }
         ],
         graphic: [
@@ -938,34 +975,32 @@
     })();
 
     // -----------------------------
-    // Chart: 5Y curve + YoY (fix overlap)
+    // Chart: 5Y curve + YoY (fixed overlap + show FY21 bar)
     // -----------------------------
     (function(){
       const el = document.getElementById("chart5y");
       const c = echarts.init(el, null, {renderer:"canvas"});
 
-      const yoy = calcYoY(pbp5y);
-      const years = pbp5y.map(d => d.year);
-      const values = pbp5y.map(d => d.value);
+      const yoy = calcYoY(pbp5y).map(v => +v.toFixed(1)); // one decimal
 
       const option = {
         ...common,
-        grid: {left: 54, right: 58, top: 64, bottom: 76},
+        grid: {left: 54, right: 54, top: 66, bottom: 76},
         title: [
           {
-            text: "PBP（含 Office/M365 等）TTM 5Y 走势（代理） + YoY",
+            text: "PBP（含 Office/M365 等）TTM 5Y 走势（代理）+ YoY",
             left: 16, top: 12,
             textStyle: {fontSize: 13, fontWeight: 800, color:"#2a2f36"}
           },
           {
             text: "左轴：收入 $B（TTM）| 右轴：同比 YoY（%）| FY 口径：Sep 30 TTM",
-            left: 16, top: 36,
+            left: 16, top: 38,
             textStyle: {fontSize: 11, fontWeight: 600, color: css("--muted")}
           }
         ],
         xAxis: {
           type: "category",
-          data: years,
+          data: pbp5y.map(d => d.year),
           axisTick: {show:false},
           axisLine: {lineStyle:{color: css("--line")}},
           axisLabel: {color: css("--muted"), fontSize: 12}
@@ -977,56 +1012,62 @@
             nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,0,0,10]},
             axisTick: {show:false},
             axisLine: {show:false},
-            splitLine: {lineStyle:{color:"#efefec"}}
+            splitLine: {lineStyle:{color:"rgba(237,235,233,.85)"}}
           },
           {
             type: "value",
             name: "YoY（%）",
-            nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,10,0,0]},
+            nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,0,0,10]},
             axisTick: {show:false},
             axisLine: {show:false},
-            splitLine: {show:false},
-            axisLabel: {color: css("--muted")},
-            max: (v)=> Math.ceil(v.max * 1.18)  // 顶部留空间，避免挤
+            splitLine: {show:false}
           }
         ],
         series: [
+          /* YoY bars on right axis */
           {
-            name: "YoY（%）",
+            name: "YoY",
             type: "bar",
             yAxisIndex: 1,
-            barWidth: 28,
-            data: yoy.map(v => (v==null ? null : +v.toFixed(1))),
-            itemStyle: {color: css("--ms-blue"), borderRadius:[10,10,0,0]},
+            data: yoy,
+            barWidth: 44,
+            barMinHeight: 6,                 // FY21 (0) still visible
+            itemStyle: {
+              color: css("--ms-blue"),
+              borderRadius: [12,12,0,0]
+            },
             label: {
               show: true,
-              position: "top",
-              formatter: (p)=> (p.value==null ? "" : `${p.value}%`),
-              color: "#2a2f36",
+              position: "insideTop",         // prevent overlap with revenue label
+              distance: 6,
+              formatter: (p)=> (p.dataIndex === 0 ? "—" : `${p.value}%`),
+              color: "#ffffff",
               fontSize: 11,
-              fontWeight: 800,
-              offset: [16, -6]   // 往右挪，避开折线标签
+              fontWeight: 900
             },
-            labelLayout: { hideOverlap: true, moveOverlap: 'shiftY' }
+            emphasis: { focus: "series" }
           },
+
+          /* Revenue line on left axis */
           {
-            name: "PBP TTM（$B）",
+            name: "PBP TTM",
             type: "line",
-            data: values,
+            yAxisIndex: 0,
+            data: pbp5y.map(d => d.value),
             symbol: "circle",
-            symbolSize: 8,
+            symbolSize: 9,
             lineStyle: {width: 3, color: css("--deep-green")},
             itemStyle: {color: css("--deep-green")},
             label: {
               show: true,
               position: "top",
+              distance: 8,
               formatter: (p) => `${Number(p.value).toFixed(1)}B`,
               color: "#2a2f36",
               fontSize: 11,
-              fontWeight: 800,
-              offset: [-18, -10]  // 往左上挪，避开YoY
+              fontWeight: 800
             },
-            labelLayout: { hideOverlap: true, moveOverlap: 'shiftY' }
+            z: 3
           }
         ],
         graphic: [
@@ -1035,7 +1076,7 @@
             left: 16,
             bottom: 18,
             style: {
-              text: "注：微软未披露“纯 M365/Office 收入绝对值”。该曲线为 PBP 分部代理口径（含 Office/M365、LinkedIn、Dynamics 等）；YoY 为相邻年份 TTM 增长率。",
+              text: "注：微软未披露“纯 M365/Office 收入绝对值”。该曲线为 PBP 分部代理口径（包含 Office/M365、LinkedIn、Dynamics 等）；YoY 为相邻年份 TTM 增长率（FY21 无同比，记为“—”）。",
               fill: css("--muted"),
               fontSize: 11
             }
@@ -1060,6 +1101,7 @@
             <li><code>Microsoft Cloud 体量</code>：AI 商业化通常绑定订阅与云服务组合。</li>
             <li><code>CapEx</code>：算力与数据中心投入，是 AI 成本最直接的压力源。</li>
           </ul>
+          <p>这些指标能让你在不虚构 AI 收入的前提下，仍讲清“AI 在拉增长，也在压成本”。</p>
         `
       },
       m_no_ai_rev: {
@@ -1068,8 +1110,9 @@
           <p>建议分两层讲：</p>
           <ol>
             <li><b>对外</b>：只引用财报披露（云增长、CapEx、毛利/利润率变化）。</li>
-            <li><b>对内</b>：做“AI 归因模型”——产品直归因（seat×单价）、云消费归因、增量归因。</li>
+            <li><b>对内</b>：做“AI 归因模型”——产品直归因（seat×单价）、云消费归因、增量归因（更抗质疑）。</li>
           </ol>
+          <p>这样既合规，又能让老板看到 AI 的真实经济性。</p>
         `
       },
       m_m365_inputs: {
@@ -1077,10 +1120,11 @@
         body: `
           <p>你只需要改 3 个位置：</p>
           <ul>
-            <li><code>m365_copilot_paid_seats</code>：换成你掌握的最新口径。</li>
-            <li><code>M365_PRICE_PER_USER_PER_MONTH</code>：若你用 EA 净价，可直接替换。</li>
-            <li><code>m365Scenarios.coef</code>：把系数拆成（折扣×未满周期×打包）更好解释。</li>
+            <li><code>m365_copilot_paid_seats</code>：用你掌握的最新披露/内部口径。</li>
+            <li><code>M365_PRICE_PER_USER_PER_MONTH</code>：若你用地区价/EA价，可换成有效净价。</li>
+            <li><code>m365Scenarios.coef</code>：把系数拆成（折扣×未满周期×打包）更容易在老板面前解释。</li>
           </ul>
+          <p>若你希望“按季度收入”而非年化：把公式里的 <code>×12</code> 换成 <code>×3</code> 并增加“当季平均有效 seats”的口径。</p>
         `
       }
     };
