@@ -15,24 +15,33 @@
 
   <style>
     :root{
-      --bg:#f4f4f2;
-      --card:#ffffff;
-      --ink:#1f2328;
-      --muted:#6b7280;
-      --line:#e6e6e3;
+      /* Fluent / Microsoft 365-like */
+      --bg:#f6f7f9;           /* 页面背景：更“微软白灰” */
+      --card:#ffffff;         /* 卡片底 */
+      --ink:#1b1a19;          /* Fluent 主文字更偏暖黑 */
+      --muted:#605e5c;        /* 次级文字 */
+      --line:#edebe9;         /* Fluent 分割线 */
 
+      /* Microsoft accent */
+      --ms-blue:#0078d4;
+      --ms-blue-2:#106ebe;
+      --ms-blue-ghost: rgba(0,120,212,.08);
+
+      /* Chart palette (保留你原先的低饱和深色系) */
       --deep-blue:#1f5a6a;
       --deep-green:#4f7f5b;
       --deep-red:#b15245;
       --sand:#d5b35f;
       --stone:#9aa0a6;
 
-      --shadow: 0 10px 30px rgba(0,0,0,.06);
-      --radius: 18px;
+      /* Fluent 的阴影更轻、更“短” */
+      --shadow: 0 2px 10px rgba(0,0,0,.06);
+      --radius: 16px;
       --max: 980px;
 
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
@@ -43,7 +52,11 @@
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
     }
-    a{color:inherit}
+
+    /* Link: Fluent-ish */
+    a{ color: var(--ms-blue); }
+    a:hover{ color: var(--ms-blue-2); }
+
     .wrap{
       max-width: var(--max);
       margin: 0 auto;
@@ -80,8 +93,8 @@
       z-index: 10;
       margin: 10px 0 12px;
       padding: 10px 10px;
-      background: rgba(244,244,242,.86);
-      backdrop-filter: blur(10px);
+      background: rgba(246,247,249,.86);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
     }
     .nav{
@@ -92,25 +105,41 @@
       scrollbar-width: none;
     }
     .nav::-webkit-scrollbar{display:none}
+
+    /* Chip: Microsoft-like hover/active */
     .chip{
       flex:0 0 auto;
       padding: 8px 10px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255,255,255,.7);
+      background: rgba(255,255,255,.8);
       font-size: 12px;
       color: #2a2f36;
       white-space: nowrap;
       text-decoration: none;
-      transition: .15s ease;
+      transition: background .15s ease, border-color .15s ease, transform .12s ease, color .15s ease;
+      outline: none;
     }
-    .chip:active{transform: scale(.98)}
     .chip b{font-weight:600}
     .chip .dot{
       display:inline-block;
       width:8px;height:8px;border-radius:99px;margin-right:6px;
       background: var(--stone);
       vertical-align: -1px;
+    }
+    .chip:hover{
+      background: var(--ms-blue-ghost);
+      border-color: rgba(0,120,212,.35);
+      color: var(--ms-blue-2);
+    }
+    .chip:active{
+      transform: scale(.98);
+      background: rgba(0,120,212,.12);
+      border-color: rgba(0,120,212,.55);
+    }
+    .chip:focus-visible{
+      box-shadow: 0 0 0 3px rgba(0,120,212,.18);
+      border-color: rgba(0,120,212,.65);
     }
 
     /* Cards */
@@ -178,11 +207,13 @@
       background: #fbfbfb;
     }
     .m .k{ font-size: 11px; color: var(--muted); }
+    /* KPI 关键数字：微软蓝强调 */
     .m .v{
       margin-top: 6px;
       font-size: 18px;
       font-weight: 700;
       letter-spacing:.01em;
+      color: var(--ms-blue);
     }
     .m .u{
       font-size: 12px;
@@ -331,7 +362,13 @@
       padding: 10px 12px;
       font-size: 12px;
       cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .12s ease;
     }
+    .btn:hover{
+      background: var(--ms-blue-ghost);
+      border-color: rgba(0,120,212,.35);
+    }
+    .btn:active{ transform: scale(.98); }
     .btn b{font-weight:600}
 
     /* Footer */
@@ -351,9 +388,14 @@
     .src a{
       text-decoration: none;
       border: 1px solid var(--line);
-      background: rgba(255,255,255,.6);
+      background: rgba(255,255,255,.8);
       padding: 10px 12px;
       border-radius: 14px;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    .src a:hover{
+      background: var(--ms-blue-ghost);
+      border-color: rgba(0,120,212,.35);
     }
 
     @media (min-width: 860px){
@@ -587,19 +629,19 @@
       <div style="margin-top:6px; font-family:'Noto Serif SC',serif; font-size:18px; color:var(--ink);">数据来源（点击打开）</div>
       <div class="src">
         <a href="https://www.microsoft.com/en-us/investor/earnings/fy-2026-q2/press-release-webcast" target="_blank" rel="noopener">
-          微软 IR：FY26 Q2 Press Release / Webcast（总营收、Cloud、CapEx 等）:contentReference[oaicite:1]{index=1}
+          微软 IR：FY26 Q2 Press Release / Webcast（总营收、Cloud、CapEx 等）
         </a>
         <a href="https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q2/productivity-and-business-processes-performance" target="_blank" rel="noopener">
-          微软 IR：FY26 Q2 PBP Performance（提到 Copilot/E5 拉动 RPU 等）:contentReference[oaicite:2]{index=2}
+          微软 IR：FY26 Q2 PBP Performance（提到 Copilot/E5 拉动 RPU 等）
         </a>
         <a href="https://www.microsoft.com/en-us/microsoft-365-copilot/pricing/enterprise" target="_blank" rel="noopener">
-          Microsoft 365 Copilot 定价：$30 user/month（paid yearly）:contentReference[oaicite:3]{index=3}
+          Microsoft 365 Copilot 定价：$30 user/month（paid yearly）
         </a>
         <a href="https://docs.github.com/en/copilot/get-started/plans" target="_blank" rel="noopener">
-          GitHub Copilot Plans（Pro/Business/Enterprise 定价）:contentReference[oaicite:4]{index=4}
+          GitHub Copilot Plans（Pro/Business/Enterprise 定价）
         </a>
         <a href="https://stockanalysis.com/stocks/msft/metrics/revenue-by-segment/" target="_blank" rel="noopener">
-          MSFT 分部收入（TTM 5Y 汇总表，用于 PBP 代理曲线）:contentReference[oaicite:5]{index=5}
+          MSFT 分部收入（TTM 5Y 汇总表，用于 PBP 代理曲线）
         </a>
       </div>
 
@@ -625,49 +667,26 @@
     // Disclosed / Inputs (edit here)
     // -----------------------------
     const disclosed = {
-      // FY26 Q2 key signals (from MS IR / coverage)
       total_revenue_b: 81.3,
       ms_cloud_b: 51.5,
       azure_yoy_pct: 39,
       capex_b: 37.5,
 
-      // Copilot counts user provided in your note (paid seats / subscribers)
-      // 你后续如果要换成更新的披露口径，改这里即可
       m365_copilot_paid_seats: 15_000_000,
       gh_copilot_paid: 4_700_000
     };
 
     // Microsoft 365 Copilot enterprise pricing (public list price)
-    // $30 user/month paid yearly
-    const M365_PRICE_PER_USER_PER_MONTH = 30; // :contentReference[oaicite:6]{index=6}
+    const M365_PRICE_PER_USER_PER_MONTH = 30;
 
     // ---- M365 Copilot coefficient scenarios (you can tune) ----
-    // “系数”= 折扣系数 × 期内有效系数 × 打包/非纯价系数
-    // 说明：这里只做“区间估算”模板，避免伪精确。
     const m365Scenarios = [
-      {
-        name: "保守",
-        coef: 0.55,
-        breakdown: "折扣 0.75 × 未满周期 0.80 × 打包/非纯价 0.92",
-        color: css("--stone")
-      },
-      {
-        name: "基准",
-        coef: 0.75,
-        breakdown: "折扣 0.85 × 未满周期 0.90 × 打包/非纯价 0.98",
-        color: css("--sand")
-      },
-      {
-        name: "乐观",
-        coef: 0.90,
-        breakdown: "折扣 0.92 × 未满周期 0.95 × 打包/非纯价 1.03",
-        color: css("--stone")
-      }
+      { name: "保守", coef: 0.55, breakdown: "折扣 0.75 × 未满周期 0.80 × 打包/非纯价 0.92", color: css("--stone") },
+      { name: "基准", coef: 0.75, breakdown: "折扣 0.85 × 未满周期 0.90 × 打包/非纯价 0.98", color: css("--sand") },
+      { name: "乐观", coef: 0.90, breakdown: "折扣 0.92 × 未满周期 0.95 × 打包/非纯价 1.03", color: css("--stone") }
     ];
 
     // ---- GitHub Copilot ARPU scenarios (month) ----
-    // 用 ARPU（月均$/人）做区间比“选一个定价硬乘”更抗质疑
-    // 定价参考：Pro $10，Business $19，Enterprise $39 :contentReference[oaicite:7]{index=7}
     const ghArpuScenarios = [
       { name: "保守 ARPU", arpu: 12, color: css("--stone") },
       { name: "基准 ARPU", arpu: 18, color: css("--deep-blue") },
@@ -682,13 +701,12 @@
     ];
 
     // ---- 5Y proxy curve (PBP TTM @ Sep 30 each year) ----
-    // From StockAnalysis table :contentReference[oaicite:8]{index=8}
     const pbp5y = [
-      { year: "FY21", value: 56.64 }, // Sep 30 2021
-      { year: "FY22", value: 64.79 }, // Sep 30 2022
-      { year: "FY23", value: 71.40 }, // Sep 30 2023
-      { year: "FY24", value: 87.45 }, // Sep 30 2024
-      { year: "FY25", value: 125.51 } // Sep 30 2025
+      { year: "FY21", value: 56.64 },
+      { year: "FY22", value: 64.79 },
+      { year: "FY23", value: 71.40 },
+      { year: "FY24", value: 87.45 },
+      { year: "FY25", value: 125.51 }
     ];
 
     // -----------------------------
@@ -729,11 +747,12 @@
     const common = {
       textStyle: {fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "PingFang SC","Microsoft YaHei", Arial'},
       tooltip: {
-        trigger: 'item',
+        trigger: 'axis',
+        axisPointer: { type: 'line' },
         backgroundColor: 'rgba(255,255,255,.96)',
-        borderColor: '#e6e6e3',
+        borderColor: css("--line"),
         borderWidth: 1,
-        textStyle: {color:'#1f2328', fontSize: 12},
+        textStyle: {color: css("--ink"), fontSize: 12},
         extraCssText: 'box-shadow: 0 10px 30px rgba(0,0,0,.08); border-radius: 12px;'
       }
     };
@@ -748,27 +767,17 @@
       const seats = disclosed.m365_copilot_paid_seats;
       const seriesData = m365Scenarios.map(s => {
         const v = annualB(seats, M365_PRICE_PER_USER_PER_MONTH, s.coef);
-        return {
-          name: s.name,
-          value: v,
-          itemStyle: { color: s.color, borderRadius: [10,10,0,0] }
-        };
+        return { name: s.name, value: v, itemStyle: { color: s.color, borderRadius: [10,10,0,0] } };
       });
 
       const option = {
         ...common,
         grid: {left: 52, right: 18, top: 56, bottom: 72},
         title: [
-          {
-            text: "M365 Copilot 年化收入能力（区间估算）",
-            left: 16, top: 12,
-            textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"}
-          },
-          {
-            text: `单位：十亿美元（$B） | seats=${(seats/1e6).toFixed(1)}M × $${M365_PRICE_PER_USER_PER_MONTH}/月 × 12 × 系数`,
-            left: 16, top: 34,
-            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
-          }
+          { text: "M365 Copilot 年化收入能力（区间估算）", left: 16, top: 12,
+            textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"} },
+          { text: `单位：十亿美元（$B） | seats=${(seats/1e6).toFixed(1)}M × $${M365_PRICE_PER_USER_PER_MONTH}/月 × 12 × 系数`,
+            left: 16, top: 34, textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")} }
         ],
         xAxis: {
           type: "category",
@@ -828,27 +837,17 @@
       const users = disclosed.gh_copilot_paid;
       const seriesData = ghArpuScenarios.map(s => {
         const v = annualB_fromARPU(users, s.arpu);
-        return {
-          name: s.name,
-          value: v,
-          itemStyle: { color: s.color, borderRadius: [10,10,0,0] }
-        };
+        return { name: s.name, value: v, itemStyle: { color: s.color, borderRadius: [10,10,0,0] } };
       });
 
       const option = {
         ...common,
         grid: {left: 52, right: 18, top: 56, bottom: 78},
         title: [
-          {
-            text: "GitHub Copilot 年化收入能力（ARPU 情景）",
-            left: 16, top: 12,
-            textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"}
-          },
-          {
-            text: `单位：十亿美元（$B） | paid=${(users/1e6).toFixed(1)}M × ARPU（$/月） × 12`,
-            left: 16, top: 34,
-            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
-          }
+          { text: "GitHub Copilot 年化收入能力（ARPU 情景）", left: 16, top: 12,
+            textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"} },
+          { text: `单位：十亿美元（$B） | paid=${(users/1e6).toFixed(1)}M × ARPU（$/月） × 12`,
+            left: 16, top: 34, textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")} }
         ],
         xAxis: {
           type: "category",
@@ -904,20 +903,15 @@
     (function(){
       const el = document.getElementById('chartCost');
       const c = echarts.init(el, null, {renderer:'canvas'});
+
       const option = {
         ...common,
         grid: {left: 16, right: 16, top: 44, bottom: 18},
         title: [
-          {
-            text: `CapEx：$${disclosed.capex_b}B（AI 基础设施为主）`,
-            left: 16, top: 12,
-            textStyle: {fontSize: 13, fontWeight: 700, color:'#2a2f36'}
-          },
-          {
-            text: `单位：结构占比（示意）`,
-            left: 16, top: 34,
-            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
-          }
+          { text: `CapEx：$${disclosed.capex_b}B（AI 基础设施为主）`, left: 16, top: 12,
+            textStyle: {fontSize: 13, fontWeight: 700, color:'#2a2f36'} },
+          { text: `单位：结构占比（示意）`, left: 16, top: 34,
+            textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")} }
         ],
         series: [
           {
@@ -949,20 +943,38 @@
           }
         ]
       };
+
       c.setOption(option);
       window.addEventListener('resize', ()=>c.resize());
     })();
 
     // -----------------------------
-    // Chart: 5Y curve (PBP proxy)
+    // Chart: 5Y curve (PBP proxy) + YoY %
     // -----------------------------
     (function(){
       const el = document.getElementById("chart5y");
       const c = echarts.init(el, null, {renderer:"canvas"});
 
+      const pbpVals = pbp5y.map(d => d.value);
+      const pbpYoY = pbpVals.map((v, i) => {
+        if(i === 0) return null;
+        return (v / pbpVals[i-1] - 1) * 100;
+      });
+
       const option = {
         ...common,
-        grid: {left: 54, right: 18, top: 56, bottom: 76},
+        tooltip: {
+          ...common.tooltip,
+          formatter: (params) => {
+            const year = params?.[0]?.axisValue ?? '';
+            const line = params.find(p => p.seriesName === 'PBP TTM');
+            const bar  = params.find(p => p.seriesName === '同比 YoY');
+            const v1 = line ? `${Number(line.data).toFixed(1)}B` : '—';
+            const v2 = (bar && bar.data != null) ? `${Number(bar.data).toFixed(1)}%` : '—';
+            return `<b>${year}</b><br/>PBP TTM：${v1}<br/>同比 YoY：${v2}`;
+          }
+        },
+        grid: {left: 54, right: 54, top: 56, bottom: 76},
         title: [
           {
             text: "PBP（含 Office/M365 等）TTM 5Y 走势（代理）",
@@ -970,7 +982,7 @@
             textStyle: {fontSize: 13, fontWeight: 700, color:"#2a2f36"}
           },
           {
-            text: "单位：十亿美元（$B）| FY 口径：Sep 30 TTM",
+            text: "单位：十亿美元（$B）| FY 口径：Sep 30 TTM（右轴为同比 YoY）",
             left: 16, top: 34,
             textStyle: {fontSize: 11, fontWeight: 500, color: css("--muted")}
           }
@@ -982,19 +994,30 @@
           axisLine: {lineStyle:{color: css("--line")}},
           axisLabel: {color: css("--muted"), fontSize: 12}
         },
-        yAxis: {
-          type: "value",
-          name: "$B（TTM）",
-          nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,0,0,10]},
-          axisTick: {show:false},
-          axisLine: {show:false},
-          splitLine: {lineStyle:{color:"#efefec"}}
-        },
+        yAxis: [
+          {
+            type: "value",
+            name: "$B（TTM）",
+            nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,0,0,10]},
+            axisTick: {show:false},
+            axisLine: {show:false},
+            splitLine: {lineStyle:{color:"#efefec"}}
+          },
+          {
+            type: "value",
+            name: "YoY（%）",
+            nameTextStyle: {color: css("--muted"), fontSize: 11, padding:[0,10,0,0]},
+            axisTick: {show:false},
+            axisLine: {show:false},
+            splitLine: {show:false},
+            axisLabel: {color: css("--muted"), fontSize: 11, formatter: (v)=> `${v}%`}
+          }
+        ],
         series: [
           {
             name: "PBP TTM",
             type: "line",
-            data: pbp5y.map(d => d.value),
+            data: pbpVals,
             symbol: "circle",
             symbolSize: 8,
             lineStyle: {width: 3, color: css("--deep-green")},
@@ -1004,6 +1027,25 @@
               formatter: (p) => `${Number(p.value).toFixed(1)}B`,
               color: "#2a2f36",
               fontSize: 11,
+              fontWeight: 600
+            }
+          },
+          {
+            name: "同比 YoY",
+            type: "bar",
+            yAxisIndex: 1,
+            data: pbpYoY,
+            barWidth: 24,
+            itemStyle: {
+              color: css("--ms-blue"),
+              borderRadius: [8,8,0,0]
+            },
+            label: {
+              show: true,
+              position: "top",
+              formatter: (p) => (p.value == null ? "" : `${p.value.toFixed(1)}%`),
+              color: "#2a2f36",
+              fontSize: 10,
               fontWeight: 600
             }
           }
